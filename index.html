@@ -58,13 +58,7 @@
       background-color: #dc3545;
       color: white;
       position: absolute;
-    }
-
-    #no:hover {
-      position: absolute;
-      top: calc(10% + 40vh * var(--random-y));
-      left: calc(10% + 80vw * var(--random-x));
-      transform: translate(-50%, -50%);
+      transition: top 0.2s, left 0.2s;
     }
 
     .response {
@@ -97,7 +91,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>I Love You ❤️</h1>
+    <h1>Do you love me ❤️</h1>
     <div class="buttons">
       <button id="yes">Yes</button>
       <button id="no">No</button>
@@ -112,10 +106,35 @@
 
     // Random movement for the "No" button
     noButton.addEventListener('mouseenter', () => {
-      const randomX = Math.random();
-      const randomY = Math.random();
-      noButton.style.setProperty('--random-x', randomX);
-      noButton.style.setProperty('--random-y', randomY);
+      const randomX = Math.random() * 90; // Random position within 90% of the viewport width
+      const randomY = Math.random() * 90; // Random position within 90% of the viewport height
+      noButton.style.top = `${randomY}vh`;
+      noButton.style.left = `${randomX}vw`;
+    });
+
+    // Remove "No" button and replace it somewhere else after clicking
+    noButton.addEventListener('click', () => {
+      noButton.style.display = 'none'; // Hide the button
+      const newNoButton = document.createElement('button');
+      newNoButton.textContent = 'No';
+      newNoButton.style.position = 'absolute';
+      newNoButton.style.top = `${Math.random() * 90}vh`;
+      newNoButton.style.left = `${Math.random() * 90}vw`;
+      newNoButton.style.backgroundColor = '#dc3545';
+      newNoButton.style.color = 'white';
+      newNoButton.style.padding = '15px 30px';
+      newNoButton.style.fontSize = '1.2rem';
+      newNoButton.style.border = 'none';
+      newNoButton.style.borderRadius = '5px';
+      newNoButton.style.cursor = 'pointer';
+      newNoButton.style.transition = 'top 0.2s, left 0.2s';
+      document.body.appendChild(newNoButton);
+      newNoButton.addEventListener('mouseenter', () => {
+        const randomX = Math.random() * 90;
+        const randomY = Math.random() * 90;
+        newNoButton.style.top = `${randomY}vh`;
+        newNoButton.style.left = `${randomX}vw`;
+      });
     });
 
     // Show the response when "Yes" is clicked
